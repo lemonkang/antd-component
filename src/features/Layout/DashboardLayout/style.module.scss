@@ -1,0 +1,9 @@
+$header-height: 52px;
+.header {
+  @apply px-8;
+  height: $header-height;
+  line-height: $header-height;
+}
+.content {
+  min-height: calc(100vh - $header-height);
+}

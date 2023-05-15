@@ -1,0 +1,12 @@
+.input-search {
+  :global {
+    .ant-input-affix-wrapper-disabled {
+      @apply bg-white border-primary-200;
+      & + .ant-input-group-addon {
+        .ant-input-search-button {
+          @apply bg-primary opacity-50;
+        }
+      }
+    }
+  }
+}

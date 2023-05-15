@@ -1,0 +1,7 @@
+.gallery {
+  @apply grid h-full min-h-full;
+  grid-template-columns: 240px 1fr;
+  & > div {
+    @apply p-5;
+  }
+}

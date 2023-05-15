@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Type cross set</title>
+  <style>
+      .container {
+          display: flex;
+      }
+
+      .container > div {
+          margin-right: 32px;
+      }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="mr-6">
+    <h2>Type obj 1</h2>
+    <textarea id="obj1" name="obj1" rows="25" cols="33"></textarea>
+  </div>
+  <div>
+    <h2>Type obj 2</h2>
+    <textarea id="obj2" name="obj2" rows="25" cols="33">
+</textarea
+>
+  </div>
+  <div style="width: 300px">
+    <h2>
+      输出
+      <button onclick="handlePress()">process</button>
+    </h2>
+    <article id="output"></article>
+  </div>
+  <div>
+    <h2>说明</h2>
+    <article>
+      <p>
+        将两个 type 复制到文字输入框 Obj1 和 Obj2 里，然后点击 process, 就会得到两个 type 的交集，结果会复制到剪切板中。
+      </p>
+      <div style="display: flex">
+        <div style="margin-right: 24px">
+          <p>输入 1</p>
+          <p id="demo1"></p>
+        </div>
+        <div style="margin-right: 24px">
+          <p>输入 2</p>
+          <p id="demo2"></p>
+        </div>
+        <div>
+          <p>输出 3</p>
+          <p id="demo3"></p>
+        </div>
+      </div>
+    </article>
+  </div>
+</div>
+<script !src="">
+  function insetDemo() {
+    [`
+        {
+  amount: string
+  beneficiary: string
+}
+        `, `
+        {
+  amount: string
+  beneficiary: string
+  beneficiaryName: string
+  description: string
+}
+        `, `
+        {
+  amount: string
+  beneficiary: string
+}
+        `].forEach((text, index) => {
+      const elm = document.getElementById(`demo${index + 1}`);
+      elm.innerText = text;
+    });
+  }
+
+  insetDemo()
+
+  function handlePress() {
+    const process = pipe(
+      (ids) =>
+        ids.map(pipe(id => document.getElementById(id), getDomValue, parseObj)),
+      getStatistic,
+      getCrossSet,
+      generateCrossTypeObj,
+      stringify,
+      typescriptFormat,
+      insetText,
+      copyToClipboard,
+    );
+     process(["obj1", "obj2"]);
+  }
+
+  const insetText = (text) => {
+    document.getElementById('output').innerText = text
+    return text
+  }
+
+  function copyToClipboard(text) {
+    navigator.clipboard.writeText(text)
+      .then(() => {
+        console.log("Copied to clipboard");
+      })
+      .catch((error) => {
+        console.error("Failed to copy: ", error);
+      });
+  }
+
+
+  function pipe(...fns) {
+    return function(value) {
+      return fns.reduce(function(result, fn) {
+        return fn(result);
+      }, value);
+    };
+  }
+
+  const typescriptFormat = (str) => str.replace(/[,"]/g, "");
+
+  const stringify = (obj) => JSON.stringify(obj, null, 2);
+
+  const generateCrossTypeObj = obj => {
+    return Object.keys(obj).reduce((type, key) => {
+      type[key] = obj[key].join("|");
+      return type;
+    }, {});
+  };
+
+  const getDomValue = (elm) => (elm ? elm.value : "");
+
+  function parseObj(obj) {
+    if (!obj) {
+      return {};
+    }
+    obj = obj.split("\n").filter((i) => i.includes(":"));
+    return obj.reduce((prev, cur) => {
+      const [key, types] = cur.split(":").map((i) => i.trim());
+      prev[key] = types.split("|").map((i) => i.trim());
+      return prev;
+    }, {});
+  }
+
+  const getStatistic = (objGroup) => {
+    return objGroup.reduce((ret, obj) => {
+      const entries = Object.entries(obj);
+      entries.forEach(([key, types]) => {
+        const exist = ret[key];
+        if (!exist) {
+          ret[key] = {
+            num: 1,
+            types
+          };
+        } else {
+          if (arrayItemCompareEqual(exist.types, types)) {
+            exist.num += 1;
+          }
+        }
+      });
+      return ret;
+    }, {});
+  };
+
+  const getCrossSet = (statistic) => {
+    return Object.keys(statistic).reduce((ret, key) => {
+      const value = statistic[key];
+      if (value.num > 1) {
+        ret[key] = value.types;
+      }
+      return ret;
+    }, {});
+  };
+
+  function arrayItemCompareEqual(l1, l2) {
+    return l1.every((i) => l2.includes(i)) && l1.length === l2.length;
+  }
+</script>
+</body>
+</html>

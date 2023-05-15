@@ -1,0 +1,20 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  @apply border-solid border-0 border-gray-200;
+}
+
+html,
+body,
+#root,
+.App {
+  height: 100%;
+  min-height: 100%;
+}
+
+ul,
+ol {
+  list-style: none;
+}

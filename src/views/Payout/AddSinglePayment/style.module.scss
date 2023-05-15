@@ -1,0 +1,21 @@
+.horizontal-form{
+  :global{
+    .ant-form-item-label{
+      width: 200px;
+      text-align: start;
+    }
+    .ant-form-item .ant-form-item-label .ant-form-item-no-colon{
+      margin-left: 10px;
+      &:after{
+        content: '(Optional)';
+        @apply text-gray-400;
+      }
+    }
+    .ant-form-item .ant-form-item-label .ant-form-item-required{
+      margin-left: 0;
+      &:after{
+        display: none;
+      }
+    }
+  }
+}

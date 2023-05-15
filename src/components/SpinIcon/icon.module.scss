@@ -1,0 +1,44 @@
+.spin-icon {
+  @apply inline-block leading-none overflow-hidden relative;
+  width: 1em;
+  height: 1em;
+
+  img {
+    @apply absolute inset-0 w-full h-full;
+  }
+}
+
+.rolling-node {
+  &.rotate {
+    transform-origin: center;
+    animation: spin-rotate 1s infinite linear;
+  }
+
+  @apply relative rounded-full;
+  background: conic-gradient(
+    from 180deg at 50% 50%,
+    #266eff 0deg,
+    rgba(38, 110, 255, 0) 360deg
+  );
+  backface-visibility: hidden;
+  transform-origin: center;
+  width: 1em;
+  height: 1em;
+
+  .white-fill {
+    @apply absolute bg-white rounded-full;
+    width: 80%;
+    height: 80%;
+    top: 10%;
+    left: 10%;
+  }
+}
+
+@keyframes spin-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

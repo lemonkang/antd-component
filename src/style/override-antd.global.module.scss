@@ -1,0 +1,189 @@
+.override-antd {
+  :global {
+    /* === Button override ==== */
+    .ant-btn-default,
+    .ant-btn-dashed {
+      box-shadow: none;
+    }
+
+    .ant-btn-primary {
+      &:disabled {
+        @apply text-white bg-primary-300;
+        border-color: transparent;
+      }
+    }
+
+    .ant-btn-primary.ant-btn-background-ghost {
+      &:hover:not(:disabled) {
+        @apply bg-primary-0 border-primary;
+      }
+
+      &:disabled {
+        @apply bg-white text-primary-200 border-primary-200;
+      }
+    }
+
+    .ant-btn-default {
+      &:disabled {
+        @apply bg-gray-border-light;
+      }
+    }
+
+    /* === Input override === */
+    .ant-input-number-affix-wrapper,
+    .ant-input-number {
+      width: 100%;
+    }
+
+    /* === Picker override ===*/
+    .ant-picker {
+      width: 100%;
+      min-width: 200px;
+    }
+
+    /* === Select override === */
+
+    .ant-select {
+      width: 100%;
+      min-width: 200px;
+    }
+
+    .ant-select-open:not(.ant-select-status-error) {
+      .ant-select-selector {
+        @apply border-primary;
+        box-shadow: 0 0 0 2px rgba(41, 98, 255, 0.2);
+      }
+    }
+
+    .ant-select-dropdown {
+      padding: 0;
+      box-shadow: 0 4px 8px -2px rgba(8, 20, 51, 0.1),
+        0px 2px 4px -2px rgba(8, 20, 51, 0.06);
+
+      .ant-select-item {
+        border-radius: 0;
+      }
+
+      .ant-select-item-option-selected,
+      .ant-select-item-option-active {
+        @apply bg-gray-0 font-normal;
+      }
+    }
+
+    .ant-select-single .ant-select-selector .ant-select-selection-item {
+      .select-avatar {
+        display: none;
+      }
+    }
+
+    /* === Radio override ===*/
+    .ant-radio-button-wrapper {
+      padding-inline: 12px;
+    }
+
+    .ant-radio-checked .ant-radio-inner {
+      background: #fff;
+
+      &:after {
+        background: #2b59ff;
+        transform: scale(0.5);
+      }
+    }
+
+    .ant-radio-disabled .ant-radio-inner {
+      &:after {
+        background: #ddd;
+      }
+    }
+
+    /* === Popover override === */
+    .ant-popover {
+      &-inner {
+        @apply px-0 py-1;
+      }
+    }
+
+    .ant-modal {
+      &-content {
+        padding: 0;
+      }
+
+      &-header {
+        margin-bottom: 0;
+        padding: 12px 20px;
+      }
+
+      &-body {
+        padding: 0 20px 20px;
+      }
+
+      &-body:has(~ .ant-modal-footer) {
+        padding-bottom: 0;
+      }
+
+      &-footer {
+        margin-top: 0;
+        padding: 20px;
+      }
+    }
+
+    /* === Table override === */
+    $cell-bg: #f9f9fa;
+
+    .ant-table-wrapper {
+      .ant-table-thead {
+        .ant-table-cell {
+          background: $cell-bg;
+          @apply px-3 py-2 border-t border-gray-100;
+        }
+      }
+
+      .ant-table-thead
+        > tr
+        > th:not(:last-child):not(.ant-table-selection-column):not(
+          .ant-table-row-expand-icon-cell
+        ):not([colspan])::before {
+        height: 100%;
+        transform: none;
+        top: 0;
+      }
+
+      .ant-table-tbody > tr.ant-table-row {
+        .ant-table-cell {
+          @apply p-3;
+        }
+
+        &:hover {
+          &:hover {
+            background: $cell-bg;
+          }
+
+          td {
+            background: $cell-bg;
+          }
+        }
+      }
+
+      .ant-select {
+        width: inherit;
+        min-width: inherit;
+      }
+
+      .ant-checkbox-indeterminate .ant-checkbox-inner {
+        @apply bg-primary;
+        &:after {
+          height: 1px;
+          background: #fff;
+        }
+      }
+    }
+
+    .ant-table.ant-table-small .ant-table-cell {
+      @apply h-10 px-3 py-0;
+    }
+
+    .ant-table.ant-table-middle .ant-table-cell {
+      @apply h-12 px-3 py-0;
+    }
+  }
+}

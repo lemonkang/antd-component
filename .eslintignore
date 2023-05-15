@@ -1,0 +1,5 @@
+vite.config.ts
+src/components/icon/*.js
+src/vite-env.d.ts
+dist/
+mock/

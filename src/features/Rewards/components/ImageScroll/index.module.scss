@@ -1,0 +1,10 @@
+.container {
+  width: 90%;
+  margin: 0 auto;
+  position: relative;
+
+  img {
+    position: absolute;
+    transition: 0.3s;
+  }
+}
